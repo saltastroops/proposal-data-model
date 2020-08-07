@@ -1,0 +1,36 @@
+= SALT Proposal Data Model
+:sectnums:
+:icons: font
+:toc:
+
+This document outlines the data model for SALT proposal. While it is based on the current proposal schema, it makes various changes.
+
+== Proposal
+
+A proposal is a request for observations to be taken. It is limited to a single semester, although in the case of a Phase 1 proposal it may apply for time in multiple semesters.
+
+NOTE: Contrary to the current schema, this means that a completely new Phase 2 proposal must be submitted for a new semester.
+
+=== General information
+
+==== Proposal code
+
+The proposal code identifies a proposal across submissions and semesters; if two proposals have the same proposal code, they refer to the same observing programme. A proposal code is of the form _YYYY-S-TYPE-NUMBER_, where _YYYY_ is the year, _S_ the semester (i.e. 1 or 2), _TYPE_ is a type identifier (see...) and _NUMBER_ is a running number. Examples would be 2020-1-SCI-042 or 2021-2-DDT-006.
+
+==== Proposal type
+
+The available proposal types are listed in the table below, together with the corresponding type identifiers used in proposal codes.
+
+[%header]
+.Proposal types and identifiers
+|===
+| Proposal Type | Description | Type identifier
+| Science | "Normal" science proposal | SCI
+| Multisemester | Proposal for an observation program which is intended to last for more than one semester | MLT
+| Large Science Program | Proposal requesting more than 150 hours of observing time, which can be spread over six semesters | LSP
+| Director's Discretionary Time | Proposal with time allocated outside the normal TAC process. Contrary to other proposal types, no investigator has to belong to a SALT partner | DDT
+| Gravitational Wave Event | Follow-up of a gravitational wave event | GWE
+| Science Verification | Science verification proposal | SVP
+| Commissioning | Commissioning proposal | COM
+|===
+
