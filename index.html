@@ -437,17 +437,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
 <h1>SALT Proposal Data Model</h1>
-<div id="toc" class="toc">
+<div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_proposal">1. Proposal</a>
 <ul class="sectlevel2">
-<li><a href="#_general_information">1.1. General information</a></li>
+<li><a href="#_general_information_phase_1_and_2">1.1. General information (phase 1 and 2)</a></li>
+<li><a href="#_partner_phase_1">1.2. Partner (phase 1)</a></li>
 </ul>
 </li>
+<li><a href="#_glossary">Glossary</a></li>
 </ul>
 </div>
 </div>
@@ -455,7 +457,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This document outlines the data model for SALT proposal. While it is based on the current proposal schema, it makes various changes.</p>
+<p>This document outlines the data model for SALT proposals. While it is based on the current proposal schema, it makes various changes.</p>
 </div>
 </div>
 </div>
@@ -463,7 +465,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_proposal">1. Proposal</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A proposal is a request for observations to be taken. It is limited to a single semester, although in the case of a Phase 1 proposal it may apply for time in multiple semesters.</p>
+<p>A proposal is a request for observations to be taken. It is limited to a single semester, although in the case of a phase 1 proposal it may apply for time in multiple semesters.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -472,36 +474,91 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Contrary to the current schema, this means that a completely new Phase 2 proposal must be submitted for a new semester.
+Contrary to the current schema, this means that a completely new phase 2 proposal must be submitted for a new semester.
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_general_information">1.1. General information</h3>
-<div class="sect3">
-<h4 id="_proposal_code">1.1.1. Proposal code</h4>
 <div class="paragraph">
-<p>The proposal code identifies a proposal across submissions and semesters; if two proposals have the same proposal code, they refer to the same observing programme. A proposal code is of the form <em>YYYY-S-TYPE-NUMBER</em>, where <em>YYYY</em> is the year, <em>S</em> the semester (i.e. 1 or 2), <em>TYPE</em> is a type identifier (see&#8230;&#8203;) and <em>NUMBER</em> is a running number. Examples would be 2020-1-SCI-042 or 2021-2-DDT-006.</p>
+<p>A phase 1 proposal includes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>general information</p>
+</li>
+<li>
+<p>partners</p>
+</li>
+<li>
+<p>investigators</p>
+</li>
+<li>
+<p>targets</p>
+</li>
+<li>
+<p>observations</p>
+</li>
+<li>
+<p>instrument configurations</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A phase 2 proposal includes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>general information</p>
+</li>
+<li>
+<p>investigators</p>
+</li>
+<li>
+<p>targets</p>
+</li>
+<li>
+<p>instrument configurations</p>
+</li>
+<li>
+<p>blocks</p>
+</li>
+<li>
+<p>pools</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>All of these are explained in detail in the sections below.</p>
+</div>
+<div class="sect2">
+<h3 id="_general_information_phase_1_and_2">1.1. General information (phase 1 and 2)</h3>
+<div class="sect3">
+<h4 id="_proposal_code_phase_1_and_2">1.1.1. Proposal code (phase 1 and 2)</h4>
+<div class="paragraph">
+<p>The proposal code identifies a proposal across submissions and semesters; if two proposals have the same proposal code, they refer to the same observing programme. A proposal code is of the form <em>YYYY-S-TYPE-NUMBER</em>, where <em>YYYY</em> is the year, <em>S</em> the semester (i.e. 1 or 2), <em>TYPE</em> is a type identifier (see <a href="#proposal_type">proposal types</a>) and <em>NUMBER</em> is a running number. Examples would be 2020-1-SCI-042 or 2021-2-DDT-006.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_proposal_type">1.1.2. Proposal type</h4>
+<h4 id="proposal_type">1.1.2. Proposal type (phase 1 and 2)</h4>
 <div class="paragraph">
 <p>The available proposal types are listed in the table below, together with the corresponding type identifiers used in proposal codes.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Proposal types and identifiers</caption>
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Proposal Type</th>
 <th class="tableblock halign-left valign-top">Description</th>
 <th class="tableblock halign-left valign-top">Type identifier</th>
+<th class="tableblock halign-left valign-top">Phases</th>
 </tr>
 </thead>
 <tbody>
@@ -509,47 +566,385 @@ Contrary to the current schema, this means that a completely new Phase 2 proposa
 <td class="tableblock halign-left valign-top"><p class="tableblock">Science</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">"Normal" science proposal</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SCI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 and 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Multisemester</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Proposal for an observation program which is intended to last for more than one semester</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MLT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 and 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large Science Program</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Proposal requesting more than 150 hours of observing time, which can be spread over six semesters</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LSP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 and 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Director&#8217;s Discretionary Time</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Proposal with time allocated outside the normal TAC process. Contrary to other proposal types, no investigator has to belong to a SALT partner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DDT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 only</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Gravitational Wave Event</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Follow-up of a gravitational wave event</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GWE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 only</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Science Verification</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Science verification proposal</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SVP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 only</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Commissioning</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Commissioning proposal</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">COM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 only</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OPTICON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Proposal which has been allocated time by OPTICON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OPT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 only</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The last column is explained in the <a href="#phase">Phase section</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_title_phase_1_and_2">1.1.3. Title (phase 1 and 2)</h4>
+<div class="paragraph">
+<p>The proposal title.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_abstract_phase_1_and_2">1.1.4. Abstract (phase 1 and 2)</h4>
+<div class="paragraph">
+<p>The proposal abstract.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="period">1.1.5. Period (phase 1 and 2)</h4>
+<div class="paragraph">
+<p>The period for which the proposal is submitted. In case of a Phase 1 proposal this is the period of the call for proposals. A period consists of a year and a semester, and is usually written as <em>YYYY-S</em> with the year <em>YYYY</em> and semester <em>S</em>. The semester can be either 1 (from May to October) or 2 (from November to April of the following year). See the following table for examples.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Examples of periods</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Period</th>
+<th class="tableblock halign-left valign-top">Date range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 May 2020&#8201;&#8212;&#8201;31 October 2020</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 November 2020 - 30 April 2021</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 May 2021&#8201;&#8212;&#8201;31 October 2021</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 November 2021 - 30 April 2022</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The term <em>period</em> has been borrowed from ESO. The term <em>semester</em> is used for it elsewhere, but this has the slightly annoying consequence that a semester contains a semester.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="phase">1.1.6. Phase (phase 1 and 2)</h4>
+<div class="paragraph">
+<p>The proposal phase, which can be either 1 or 2. Phase 1 proposals submitted in response to a call for proposals and request observing time as part of the normal TAC process. They mainly contain the scientific justification, the time requests, the targets, the investigators and some basic instrument configuration information.</p>
+</div>
+<div class="paragraph">
+<p>A phase 2 proposal contains all the details required for carrying out the observations of the proposal.</p>
+</div>
+<div class="paragraph">
+<p>While usually both a phase 1 and (assuming time is granted) a phase 2 proposal need to be submitted, proposals outside the normal TAC process only require a phase 2 submission. See the table in the <a href="#proposal_type">Proposal Type section</a> for details.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_time_requests_phase_1">1.1.7. Time requests (phase 1)</h4>
+<div class="paragraph">
+<p>A time request includes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the amount of requested time</p>
+</li>
+<li>
+<p>the <a href="#period">period</a> for which the time is requested</p>
+</li>
+<li>
+<p>the minimum useful time</p>
+</li>
+<li>
+<p>optionally a comment</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A proposal may have multiple time requests, but only one request per period. One of the time requests should be for the proposal period (i.e. the period of the call for proposals in response to which the proposal is submitted), and no time request should be for a period earlier than the proposal period.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_scientific_justification_phase_1_and_2">1.1.8. Scientific justification (phase 1 and 2)</h4>
+<div class="paragraph">
+<p>A pdf for providing scientific background and justification, as well as illustrating the technical feasibility of the planned observations. This should be created from a LaTeX or Word template (which may depend on the proposal type). However, this is not enforced programmatically.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+At the moment, the use of the correct template <em>is</em> checked. But this might be more pain than gain.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The proposal does not include the actual pdf, but a URI for it. This URI must have been issued by SALT. In other words, the pdf must have been uploaded prior to the proposal submission.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_target_of_opportunity_phase_1">1.1.9. Target of Opportunity (phase 1)</h4>
+<div class="paragraph">
+<p>A flag indicating whether the proposal includes target of opportunity observations.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_time_critical_phase_1">1.1.10. Time Critical (phase 1)</h4>
+<div class="paragraph">
+<p>A flag indicating whether the proposal includes observations which are time critical.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_priority_4_phase_1">1.1.11. Priority 4 (phase 1)</h4>
+<div class="paragraph">
+<p>A flag indicating whether this is a proposal which requests priority 4 time only.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_related_theses_phase_1">1.1.12. Related theses (phase 1)</h4>
+<div class="paragraph">
+<p>Student theses which would use data for this proposal. For each thesis the following details should be included,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the student (who must be an investigator for the proposal)</p>
+</li>
+<li>
+<p>the type of degree (Masters or PhD)</p>
+</li>
+<li>
+<p>the expected year of completion</p>
+</li>
+<li>
+<p>the relevance of the data for the thesis</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The relevance of the data needs to be included only if the proposal requests time from the South African TAC.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_external_funding_phase_1">1.1.13. External funding (phase 1)</h4>
+<div class="paragraph">
+<p>A free-form string naming any non-SALT funding source(s). This is for the benefit of the PI only.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_previous_proposals_phase_1">1.1.14. Previous proposals (phase 1)</h4>
+<div class="paragraph">
+<p>A list of the PI&#8217;s proposals from the previous four periods. Each proposal includes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the proposal code</p>
+</li>
+<li>
+<p>a comment on the proposal status</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_publications_phase_1">1.1.15. Publications (phase 1)</h4>
+<div class="paragraph">
+<p>A list of publications by any of the investigators which are of relevance for this proposal.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This is new (and borrowed from ESO).
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_partner_phase_1">1.2. Partner (phase 1)</h3>
+<div class="paragraph">
+<p>Partner related details for the proposal.</p>
+</div>
+<div class="sect3">
+<h4 id="_partner_code">1.2.1. Partner code</h4>
+<div class="paragraph">
+<p>A unique code identifier for the partner, as given in the following table.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Partner codes</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Partner code</th>
+<th class="tableblock halign-left valign-top">Partner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AMNH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">American Museum of Natural History</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CMU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Carnegie Mellon University</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dartmouth College</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DUR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Durham University</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Georg-August-Universität Göttingen</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hobby Eberly Telescope Board</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IUCAA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inter-University Centre for Astronomy &amp; Astrophysics</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Poland</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RSA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">South Africa</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rutgers University</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">University of Canterbury</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UKSC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UK SALT Consortium</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UNC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">University of North Carolina - Chapel Hill</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UW</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">University of Wisconsin-Madison</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="sect3">
+<h4 id="_requested_time_share">1.2.2. Requested time share</h4>
+<div class="paragraph">
+<p>The amount of time requested from the partner, as a percentage. The requested time shares must add up to 100 %.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_role_of_investigators">1.2.3. Role of investigators</h4>
+<div class="paragraph">
+<p>The role the investigators (including students) of this proposal. This is only required for LSP proposals requesting time from the South African TAC.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_glossary">Glossary</h2>
+<div class="sectionbody">
+<div class="dlist glossary">
+<dl>
+<dt>LSP</dt>
+<dd>
+<p>Large Science Program</p>
+</dd>
+<dt>PI</dt>
+<dd>
+<p>Principal Investigator</p>
+</dd>
+<dt>SALT</dt>
+<dd>
+<p>Southern African Large Telescope</p>
+</dd>
+<dt>TAC</dt>
+<dd>
+<p>time allocation committee</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-07 20:32:10 UTC
+Last updated 2020-08-08 19:56:07 UTC
 </div>
 </div>
 </body>
