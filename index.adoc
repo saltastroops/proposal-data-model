@@ -1,36 +1,199 @@
 = SALT Proposal Data Model
 :sectnums:
 :icons: font
-:toc:
+:toc: left
+:phase1: (phase 1)
+:phase2: (phsse 2)
+:phase12: (phase 1 and 2)
 
-This document outlines the data model for SALT proposal. While it is based on the current proposal schema, it makes various changes.
+This document outlines the data model for SALT proposals. While it is based on the current proposal schema, it makes various changes.
 
 == Proposal
 
-A proposal is a request for observations to be taken. It is limited to a single semester, although in the case of a Phase 1 proposal it may apply for time in multiple semesters.
+A proposal is a request for observations to be taken. It is limited to a single semester, although in the case of a phase 1 proposal it may apply for time in multiple semesters.
 
-NOTE: Contrary to the current schema, this means that a completely new Phase 2 proposal must be submitted for a new semester.
+NOTE: Contrary to the current schema, this means that a completely new phase 2 proposal must be submitted for a new semester.
 
-=== General information
+A phase 1 proposal includes
 
-==== Proposal code
+* general information
+* partners
+* investigators
+* targets
+* observations
+* instrument configurations
 
-The proposal code identifies a proposal across submissions and semesters; if two proposals have the same proposal code, they refer to the same observing programme. A proposal code is of the form _YYYY-S-TYPE-NUMBER_, where _YYYY_ is the year, _S_ the semester (i.e. 1 or 2), _TYPE_ is a type identifier (see...) and _NUMBER_ is a running number. Examples would be 2020-1-SCI-042 or 2021-2-DDT-006.
+A phase 2 proposal includes
 
-==== Proposal type
+* general information
+* investigators
+* targets
+* instrument configurations
+* blocks
+* pools
+
+All of these are explained in detail in the sections below.
+
+=== General information {phase12}
+
+==== Proposal code {phase12}
+
+The proposal code identifies a proposal across submissions and semesters; if two proposals have the same proposal code, they refer to the same observing programme. A proposal code is of the form _YYYY-S-TYPE-NUMBER_, where _YYYY_ is the year, _S_ the semester (i.e. 1 or 2), _TYPE_ is a type identifier (see <<#proposal_type,proposal types>>) and _NUMBER_ is a running number. Examples would be 2020-1-SCI-042 or 2021-2-DDT-006.
+
+[#proposal_type]
+==== Proposal type {phase12}
 
 The available proposal types are listed in the table below, together with the corresponding type identifiers used in proposal codes.
 
-[%header]
+[%header,#table_proposal_types]
 .Proposal types and identifiers
 |===
-| Proposal Type | Description | Type identifier
-| Science | "Normal" science proposal | SCI
-| Multisemester | Proposal for an observation program which is intended to last for more than one semester | MLT
-| Large Science Program | Proposal requesting more than 150 hours of observing time, which can be spread over six semesters | LSP
-| Director's Discretionary Time | Proposal with time allocated outside the normal TAC process. Contrary to other proposal types, no investigator has to belong to a SALT partner | DDT
-| Gravitational Wave Event | Follow-up of a gravitational wave event | GWE
-| Science Verification | Science verification proposal | SVP
-| Commissioning | Commissioning proposal | COM
+| Proposal Type | Description | Type identifier | Phases
+| Science | "Normal" science proposal | SCI | 1 and 2
+| Multisemester | Proposal for an observation program which is intended to last for more than one semester | MLT | 1 and 2
+| Large Science Program | Proposal requesting more than 150 hours of observing time, which can be spread over six semesters | LSP | 1 and 2
+| Director's Discretionary Time | Proposal with time allocated outside the normal TAC process. Contrary to other proposal types, no investigator has to belong to a SALT partner | DDT | 2 only
+| Gravitational Wave Event | Follow-up of a gravitational wave event | GWE | 2 only
+| Science Verification | Science verification proposal | SVP | 2 only
+| Commissioning | Commissioning proposal | COM | 2 only
+| OPTICON | Proposal which has been allocated time by OPTICON | OPT | 2 only
 |===
 
+The last column is explained in the <<#phase,Phase section>>.
+
+==== Title {phase12}
+
+The proposal title.
+
+==== Abstract {phase12}
+
+The proposal abstract.
+
+[#period]
+==== Period {phase12}
+
+The period for which the proposal is submitted. In case of a Phase 1 proposal this is the period of the call for proposals. A period consists of a year and a semester, and is usually written as _YYYY-S_ with the year _YYYY_ and semester _S_. The semester can be either 1 (from May to October) or 2 (from November to April of the following year). See the following table for examples.
+
+[%header]
+.Examples of periods
+|===
+| Period | Date range
+| 2020-1 | 1 May 2020 -- 31 October 2020
+| 2020-2 | 1 November 2020 - 30 April 2021
+| 2021-1 | 1 May 2021 -- 31 October 2021
+| 2021-2 | 1 November 2021 - 30 April 2022
+|===
+
+NOTE: The term _period_ has been borrowed from ESO. The term _semester_ is used for it elsewhere, but this has the slightly annoying consequence that a semester contains a semester.
+
+[#phase]
+==== Phase {phase12}
+The proposal phase, which can be either 1 or 2. Phase 1 proposals submitted in response to a call for proposals and request observing time as part of the normal TAC process. They mainly contain the scientific justification, the time requests, the targets, the investigators and some basic instrument configuration information.
+
+A phase 2 proposal contains all the details required for carrying out the observations of the proposal.
+
+While usually both a phase 1 and (assuming time is granted) a phase 2 proposal need to be submitted, proposals outside the normal TAC process only require a phase 2 submission. See the table in the <<#proposal_type,Proposal Type section>> for details.
+
+==== Time requests {phase1}
+
+A time request includes
+
+* the amount of requested time
+* the <<#period,period>> for which the time is requested
+* the minimum useful time
+* optionally a comment
+
+A proposal may have multiple time requests, but only one request per period. One of the time requests should be for the proposal period (i.e. the period of the call for proposals in response to which the proposal is submitted), and no time request should be for a period earlier than the proposal period.
+
+==== Scientific justification {phase12}
+
+A pdf for providing scientific background and justification, as well as illustrating the technical feasibility of the planned observations. This should be created from a LaTeX or Word template (which may depend on the proposal type). However, this is not enforced programmatically.
+
+NOTE: At the moment, the use of the correct template _is_ checked. But this might be more pain than gain.
+
+The proposal does not include the actual pdf, but a URI for it. This URI must have been issued by SALT. In other words, the pdf must have been uploaded prior to the proposal submission.
+
+==== Target of Opportunity {phase1}
+
+A flag indicating whether the proposal includes target of opportunity observations.
+
+==== Time Critical {phase1}
+
+A flag indicating whether the proposal includes observations which are time critical.
+
+==== Priority 4 {phase1}
+
+A flag indicating whether this is a proposal which requests priority 4 time only.
+
+==== Related theses {phase1}
+
+Student theses which would use data for this proposal. For each thesis the following details should be included,
+
+* the student (who must be an investigator for the proposal)
+* the type of degree (Masters or PhD)
+* the expected year of completion
+* the relevance of the data for the thesis
+
+The relevance of the data needs to be included only if the proposal requests time from the South African TAC.
+
+==== External funding {phase1}
+
+A free-form string naming any non-SALT funding source(s). This is for the benefit of the PI only.
+
+==== Previous proposals {phase1}
+
+A list of the PI's proposals from the previous four periods. Each proposal includes
+
+* the proposal code
+* a comment on the proposal status
+
+==== Publications {phase1}
+
+A list of publications by any of the investigators which are of relevance for this proposal.
+
+NOTE: This is new (and borrowed from ESO).
+
+=== Partner {phase1}
+
+Partner related details for the proposal.
+
+==== Partner code
+
+A unique code identifier for the partner, as given in the following table.
+
+[%header]
+.Partner codes
+|===
+| Partner code | Partner
+| AMNH | American Museum of Natural History
+| CMU | Carnegie Mellon University
+| DC | Dartmouth College
+| DUR | Durham University
+| GU | Georg-August-Universität Göttingen
+| HET | Hobby Eberly Telescope Board
+| IUCAA | Inter-University Centre for Astronomy & Astrophysics
+| POL | Poland
+| RSA | South Africa
+| RU | Rutgers University
+| UC | University of Canterbury
+| UKSC | UK SALT Consortium
+| UNC | University of North Carolina - Chapel Hill
+| UW | University of Wisconsin-Madison
+|===
+
+==== Requested time share
+
+The amount of time requested from the partner, as a percentage. The requested time shares must add up to 100 %.
+
+==== Role of investigators
+
+The role the investigators (including students) of this proposal. This is only required for LSP proposals requesting time from the South African TAC.
+
+[glossary]
+== Glossary
+
+[glossary]
+LSP:: Large Science Program
+PI:: Principal Investigator
+SALT:: Southern African Large Telescope
+TAC:: time allocation committee
