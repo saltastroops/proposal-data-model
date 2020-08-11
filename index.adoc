@@ -2,6 +2,7 @@
 :sectnums:
 :icons: font
 :toc: left
+:iso: http://en.wikipedia.org/wiki/ISO_8601[ISO 8601 datetime string]
 :phase1: (phase 1)
 :phase2: (phsse 2)
 :phase12: (phase 1 and 2)
@@ -149,15 +150,23 @@ A list of the PI's proposals from the previous four periods. Each proposal inclu
 
 ==== Publications {phase1}
 
-A list of publications by any of the investigators which are of relevance for this proposal.
+A list of publications by any of the investigators which are of relevance for this proposal. These are given as a list of bibcodes.
 
 NOTE: This is new (and borrowed from ESO).
 
-=== Partner {phase1}
+==== Summary for the general public
+
+A short summary which may be shared with the general public.
+
+==== Allow details to be displayed
+
+A flag for allowing that the proposal title, PI and summary are shown during to the general public during an observation, for example by tweeting them.
+
+== Partner {phase1}
 
 Partner related details for the proposal.
 
-==== Partner code
+=== Partner code
 
 A unique code identifier for the partner, as given in the following table.
 
@@ -181,19 +190,245 @@ A unique code identifier for the partner, as given in the following table.
 | UW | University of Wisconsin-Madison
 |===
 
-==== Requested time share
+=== Requested time share
 
 The amount of time requested from the partner, as a percentage. The requested time shares must add up to 100 %.
 
-==== Role of investigators
+=== Role of investigators
 
 The role the investigators (including students) of this proposal. This is only required for LSP proposals requesting time from the South African TAC.
+
+== Investigator {phase12}
+
+At the moment, the proposal contains contact details as well as the partner affiliation. This more or less by implication means that users cannot easily update their contact details. Also, including these details in a proposal implies duplication of information.
+
+For these reasons the data model does not include contact details or partner affiliations any longer.
+
+An investigator thus is just a unique identifier. This must be the identifier for the user in the authentication service.
+
+NOTE: At the moment this might be the primary key in the `PiptUser` table of the SDB. However, the authentication system might be overhauled.
+
+== Target {phase12}
+
+A target is an object to be observed as part of the proposal.
+
+NOTE: Targets can have no finding charts any longer. Also, the flag distinguishing between mandatory and optional targets exists no longer; there is a respective flag for observations now.
+
+=== Target name
+
+The name of the target. This must be unique within a proposal.
+
+=== Target code
+
+A string identifying this target. The target code should be unique within a proposal and should not change across submissions. However, different proposals may have targets with the same code; global uniqueness is not guaranteed.
+
+=== Version
+
+Version of this target (information). A particular combination of target code and version can only be submitted once. In other words, if you need to resubmit a target, you need to change the version first.
+
+NOTE: This is a new requirement and is motivated by a similar requirement for blocks.
+
+=== Target type
+
+The target type, as a standard name defined by the http://simbad.u-strasbg.fr/simbad/sim-display?data=otypes&option=display+numeric+codes[SIMBAD object classification]. Examples are "AbsLineSystem", "Candidate_LMXB" and "Planet?".
+
+=== Target ephemerides
+
+The target ephemeris. This may be either of coordinates, a Horizons identifier or a dummy target flag.
+
+==== Coordinates
+
+The coordinates include
+
+* the right ascension, as an angle between 0 and 360 degrees
+* the declination, as an angle between -90 and 90 degrees
+* the equinox, as a float
+
+For targets with a high proper motion the following may be added:
+
+* the proper motion for the right ascension (in arcseconds per year)
+* the proper motion for the declination (in arcseconds per year)
+* the epoch as an {iso}.
+
+==== Horizons identifier
+
+An identifier understood by https://ssd.jpl.nasa.gov/horizons.cgi[NASA JPL's Horizons service]. This may be an object name (such as "Ubuntu") or a designation (such as "2005 EW302").
+
+NOTE: There used to be an output interval as well. However, this seems unnecessary.
+
+==== Dummy target
+
+A flag indicating that the target is a dummy target only.
+
+=== Magnitude range
+
+The magnitude range includes
+
+* the minimum (brightest) magnitude
+* the maximum (faintest) magnitude
+* the bandpass for the magnitude range, which must be any of U, B, V, R or I.
+
+=== Phase
+
+In order to easily define observing windows details about a variable target's phase may be provided.
+
+==== Time of phase zero
+
+A datetime at which the target's phase is 0. This should be an {iso}.
+
+==== Time base
+
+The timebase to use. This may be Julian Day, Heliocentric Julian Day or Barycentric Julian Day.
+
+==== Period
+
+The period of variability, in days.
+
+NOTE: There used to be rate of change of the period as well. This has rarely (if ever) been used and has been dropped.
+
+== Observation {phase1}
+
+=== Target
+
+A reference to a target. The target must exist in the proposal.
+
+=== Observing time
+
+The observing time for all visits of the observation combined. Thias includes acquisition and overhead times. The time is given in seconds.
+
+=== Visits
+
+The number of visits, i.e. how often the observation is to be carried out.
+
+=== Maximum lunar phase
+
+The maximum lunar phase at which this observation can be done (see ???).
+
+=== Ranking
+
+A measure of the importance of this observation relative to the other observations in the proposal. The following values are possible.
+
+[%header]
+.Ranking values
+|===
+| Ranking
+| High
+| Low
+| Medium
+|===
+
+=== Optional flag
+
+A flag indicating that the observation is optional, i.e. belongs to a pool of observations out of which only a subset needs to be observed.
+
+== Instrument configuration {phase1}
+
+An instrument configuration for phase 1 contains a name, simulations and details for one instrument (<<#salticam_p1,Salticam>>, <<#rss_p1,RSS>>, <<#hrs_p1,HRS>> or <<#bvit_p1,BVIT>>).
+
+=== Name
+
+A name for the configuration. This must be unique within the proposal.
+
+=== Simulations
+
+A list of simulations. Each simulation includes a URI and a comment.
+
+==== File URI
+
+URI for the simulation file. This file must be viewable in the simulation tool for the instrument used by this configuration. The URI must have been assigned by SALT. In other words, the simulation file must have been uploaded to SALT before the proposal is submitted.
+
+==== Comment
+
+An optional comment regarding the simulation.
+
+[#salticam_p1]
+=== Salticam
+
+==== Detector mode
+
+The detector mode. This must be any of the available detector modes for Salticam (see ???).
+
+==== Filters
+
+A list of filters. Each filter must be any of the available filters for Salticam (see ???).
+
+[#rss_p1]
+=== RSS
+
+NOTE: The slit type is not included any longer.
+
+A name for the configuration. This must be unique within the proposal.
+
+==== Detector mode
+
+The detector mode. This must be any of the available detector modes for RSS (see ???).
+
+==== RSS mode
+
+The mode in which RSS is operated. This can be any of the following.
+
+[%header]
+.RSS modes
+|===
+| Mode mode
+| Fabry-Perot
+| Fabry-Perot polarimetry
+| Imaging
+| Imaging polarimetry
+| MOS
+| MOS polarimetry
+| Spectropolarimetry
+| Spectroscopy
+|===
+
+==== Polarimetry
+
+The type of polarimetry. Any of the following types are allowed.
+
+[%header]
+.Polarimetry types
+|===
+| Polarimetry type
+| All Stokes
+| Circular
+| Circular Hi
+| Linear
+| Linear Hi
+| User Defined
+|===
+
+The polarimetry type is only relevant if a polarimetric RSS mode has been chosen.
+
+==== Grating
+
+The grating to use for a spectroscopic or spectropolarimetric setup. Any of the available RSS gratings (see ???) can be chosen.
+
+[#hrs_p1]
+=== HRS
+
+==== Mode
+
+The HRS mode, which can be any of the available HRS modes (see ???).
+
+[#bvit_p1]
+=== BVIT
+
+==== Filter
+
+The filter, which can be any of the available BVIT filters (see ???).
 
 [glossary]
 == Glossary
 
 [glossary]
+Bibcode:: https://en.wikipedia.org/wiki/Bibcode[Bibliographic reference code]
+BVIT:: Berkeley Visible Image Tube
+ESO:: European Southern Observatory
+HRS:: High Resolution Spectrograph
 LSP:: Large Science Program
 PI:: Principal Investigator
+RSS:: Robert Stobie Spectrograph
 SALT:: Southern African Large Telescope
+SDB:: SALT Science Database
+SIMBAD:: Astronomical database of objects beyond the Solar System,  maintained by the Centre de données astronomiques de Strasbourg (CDS)
 TAC:: time allocation committee
