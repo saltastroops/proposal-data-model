@@ -4,7 +4,7 @@
 :toc: left
 :iso: http://en.wikipedia.org/wiki/ISO_8601[ISO 8601 datetime string]
 :phase1: (phase 1)
-:phase2: (phsse 2)
+:phase2: (phase 2)
 :phase12: (phase 1 and 2)
 
 This document outlines the data model for SALT proposals. While it is based on the current proposal schema, it makes various changes.
@@ -417,12 +417,45 @@ The HRS mode, which can be any of the available HRS modes (see ???).
 
 The filter, which can be any of the available BVIT filters (see ???).
 
+== Pool {phase2}
+
+A pool is a group of blocks, and every block must be a member of exactly one pool. A pool rule describes how to observe the pool blocks.
+
+In most cases the PI has no need to group blocks. Such ungrouped blocks are collected in a default pool.
+
+=== Blocks
+
+A list of blocks. The list items are the actual blocks, not references.
+
+=== Pool rule
+
+A rule describing how to observe the pool blocks. This a string which conforms to the SALT proposal DSL. Any parameters must be included in the rule.For example, if a subset of the blocks are to be observed and 3000 seconds of priority 1 and 4000 seconds of priority 2 time should be spent on the pool, the rule might look as follows.
+
+====
+OBSERVE ANY BLOCKS FOR 3000 SECONDS WITH PRIORITY 1 AND FOR 4000 SECONDS WITH PRIORITY 2.
+====
+
+The rule for the default pool might look as follows.
+
+====
+OBSERVE ALL BLOCKS
+====
+
+Finally, the rule for a pool aimed at monitoring a target might look as follows.
+
+====
+OBSERVE ALL BLOCKS WITH A WAITING TIME OF 5 DAYS
+====
+
+NOTE: The precise wording will probably change, as the DSL has not been defined yet.
+
 [glossary]
 == Glossary
 
 [glossary]
 Bibcode:: https://en.wikipedia.org/wiki/Bibcode[Bibliographic reference code]
 BVIT:: Berkeley Visible Image Tube
+DSL:: Domain-specific language
 ESO:: European Southern Observatory
 HRS:: High Resolution Spectrograph
 LSP:: Large Science Program
