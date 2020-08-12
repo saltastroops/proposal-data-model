@@ -1,6 +1,7 @@
 = SALT Proposal Data Model
 :sectnums:
 :icons: font
+:stem: latexmath
 :toc: left
 :iso: http://en.wikipedia.org/wiki/ISO_8601[ISO 8601 datetime string]
 :phase1: (phase 1)
@@ -236,6 +237,7 @@ The target type, as a standard name defined by the http://simbad.u-strasbg.fr/si
 
 The target ephemeris. This may be either of coordinates, a Horizons identifier or a dummy target flag.
 
+[#coordinates]
 ==== Coordinates
 
 The coordinates include
@@ -448,6 +450,156 @@ OBSERVE ALL BLOCKS WITH A WAITING TIME OF 5 DAYS
 ====
 
 NOTE: The precise wording will probably change, as the DSL has not been defined yet.
+
+== Block
+
+A block is the smallest schedulable unit in a proposal -- it is observed in total, or not all, and its observation does not imply that any other block is observed. A block can have multiple visits, which are observed inependent of each. So strictly speaking, a single visit of a block is the smallest schedulable unit.
+
+A block consists of general information, an acquisition and one or more telescope configurations.
+
+NOTE: There are no subblocks, subsubblocks and pointings any longer.
+
+=== General information
+
+[NOTE]
+====
+The following have been dropped:
+
+* The block type (science or calibration)
+* The flag indicating whether the block is charged
+* The flag indicating a continuous visit
+* The datetime after which the block should not be observed any longer
+====
+
+==== Name
+
+The name of the block. This must be unique within the proposal.
+
+==== Identifier
+
+A unique identifier for this block. The identifier must be unique for a proposal, but not necessarily across proposals.
+
+==== Version
+The  version of this block, starting with 1. Once submitted, the version of a block cannot be changed any longer. More precisely, an attempt to resubmit it (with more than the identifier and version information) should result in an error.
+
+==== Comment
+
+A note about the block, aimed primarily at the observer.
+
+==== Priority
+
+The priority for the block. This is an integer between 0 and 4 inclusive.
+
+==== Ranking
+
+The importance of this block relative to other blocks of the same priority in this proposal. The following values are possible.
+
+[%header]
+.Rankings
+|===
+| Ranking
+| High
+| Low
+| Medium
+|===
+
+==== Visits
+
+The number of visits, i.e.the number of times the block should be observed in the semester for this proposal.
+
+==== Maximum number of visits for all semesters
+
+The maximum number of visits for all semesters combined.
+
+==== Time between visits
+
+The minimum number of days between consecutive visits. A value of 1day means that the next visit can be obsertved the following night.
+
+==== Transparency
+
+The sky transparency required for the observation, which can be any of the following.
+
+[%header]
+.Transparencies
+|===
+| Transparency
+| Any
+| Clear
+| Thick cloud
+| Thin cloud
+|===
+
+==== Maximum lunar illuminated fraction
+
+The maximum illuminated fraction of the Moon for which the observation can be carried out if the Moon is above the horizon. The illuminated fraction stem:[k] is related to the lunar phase stem:[\alpha] (i.e. the angle between Sun, Earth and Moon):
+
+[stem]
+++++
+k = \frac{1 + \cos\alpha}{2}
+++++
+
+\(k\) is a value between 0 (new moon) and 1 (full moon).
+
+==== Minimum lunar distance
+
+The minimum lunar distance required for the observation. The lunar distance stem:[\theta] is the angle between the Moon and the target,
+
+[stem]
+++++
+\theta = \arccos\left(
+\left(\begin{array}{c}
+\cos\delta_1 \cos\alpha_1\\
+\cos\delta_1 \sin\alpha_1\\
+\sin\delta_1
+\end{array}\right)
+\cdot
+\left(\begin{array}{c}
+\cos\delta_2 \cos\alpha_2\\
+\cos\delta_2 \sin\alpha_2\\
+\sin\delta_2
+\end{array}\right)
+\right)
+++++
+
+Here stem:[\alpha] and stem:[\delta] are the right ascension and declination, respectively. Essentially this formula uses the scalar product between two unit vectors on the celestial sphere.
+
+==== Minimum seeing
+
+The minimum zenithal seeing required for the observation. The default value is 0.1 arcseconds, and in most cases this is the value to choose. The seeing is given for the V band.
+
+==== Maximum seeing
+
+The maximum zenithal seeing required for the observation. The seeing is given for the V band.
+
+=== Acquisition
+
+==== Target
+
+A reference to a target in this proposal.
+
+==== Blind offset
+
+The blind offset is characterised by
+
+* the coordinates of a reference star (<<#coordinates,as for a target>>)
+* the north and east offset (in arcseconds) of the invisible object
+* the magnitude of the invisible object
+
+WARNING: Which bandpass is to be used for the magnitude?
+
+==== Bandpass
+
+The bandpass to use for the acquisition image. This is merely a suggestion, which may be overruled by the observer.
+
+==== Exposure time
+
+The exposure time for the acquisition image. This is merely a suggestion, which may be overruled by the observer.
+
+==== Finder charts
+
+A list of finder charts. Each finder chart is a URI to a file. The URIs must have been assigned by SALT. In other words, the finder charts must have been uploaded before the proposal can be submitted.
+
+The finder charts are optional; a finder chart is generated during submission and added to the proposal.
 
 [glossary]
 == Glossary
