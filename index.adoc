@@ -1,6 +1,7 @@
 = SALT Proposal Data Model
 :sectnums:
 :icons: font
+:imagesdir: images
 :stem: latexmath
 :toc: left
 :iso: http://en.wikipedia.org/wiki/ISO_8601[ISO 8601 datetime string]
@@ -600,6 +601,32 @@ The exposure time for the acquisition image. This is merely a suggestion, which 
 A list of finder charts. Each finder chart is a URI to a file. The URIs must have been assigned by SALT. In other words, the finder charts must have been uploaded before the proposal can be submitted.
 
 The finder charts are optional; a finder chart is generated during submission and added to the proposal.
+
+=== Telescope configuration
+
+CAUTION: This part requires some discussion!
+
+==== Iterations
+
+The number of times this telescope configuration should be repeated.
+
+==== Position angle
+
+The position angle of the camera. This may be either of the following:
+
+* The angle from north (being zero), the positive direction being to the east.
++
+image::position_angle.png[]
+
+* A flag indicating that a parallactic angle should be used.
+
+==== Guide star
+
+The guide star information includes
+
+* the coordinates (<<#coordinates,as for a target>>)
+
+* the magnitude of the guide star
 
 [glossary]
 == Glossary
