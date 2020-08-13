@@ -741,7 +741,11 @@ The calibration filter, if any. Any of the following values are allowed.
 
 The instrument configuration is a reference to a Salticam, RSS, HRS or BVIT configuration.
 
-== Salticam configuration
+== Salticam configuration {phase2}
+
+=== Identifier
+
+An identifier for this Salticam configuration. The identifier should be unique within this proposal, but not necessarily across proposals.
 
 === Cycles
 
@@ -751,6 +755,7 @@ The number of times this configuration should be repeated. This should not be co
 
 A list of exposures, consisting of filters and exposure times.
 
+[#salticam_filter]
 ==== Filter
 
 A filter, which must be in the following list.
@@ -831,10 +836,10 @@ The exposure type. This should be any of the following.
 
 ==== Gain
 
-The detector gain. This should be any of the following.
+The gain. This should be any of the following.
 
 [%header]
-.Detector gains
+.Gains
 |===
 | Gain | Description
 | Bright | Low gain for bright objects
@@ -860,7 +865,7 @@ The number of exposures to take.
 
 === Flat field
 
-A flag indicating that this a (nighttime) flat field setup.
+A flag indicating that this is a (nighttime) flat field setup.
 
 === Uncharged calibrations
 
@@ -870,9 +875,243 @@ The list of calibrations which should be taken and are not charged for. The foll
 .Uncharged calibrations
 |===
 | Uncharged calibration
-|Biases
+| Biases
 | Imaging lamp flats
 | Twilight flats
+|===
+
+== RSS configuration {phase2}
+
+=== Identifier
+
+An identifier for this Salticam configuration. The identifier should be unique within this proposal, but not necessarily across proposals.
+
+=== Cycles
+
+The number of times this RSS configuration should be repeated. This should not be confused with detector iterations.
+
+=== RSS mode
+
+The RSS mode (and the details for it).
+
+==== Imaging
+
+===== Filter
+
+The filter to use. This can be either an RSS imaging filter or a <<#salticam_filter,Salticam filter>>.
+
+==== Spectroscopy
+
+===== Barcode
+
+The barcode of the slit to use, such as PL0125N001. This is mutually exclusice with a mask file.
+
+===== Mask file
+
+The URI of the (MOS) mask file. The URI must have been assigned by SALT. In other words, the mask file must have bee uploaded before the proposal can be submitted.
+
+===== Grating
+
+The grating. This can be any of the following.
+
+[%header]
+.Gratings
+|===
+| Grating
+| Open
+| pg0300
+| pg0900
+| pg1300
+| pg1800
+| pg2300
+| pg3000
+|===
+
+===== Grating angle
+
+The angle of the grating. This usually is half the articulation angle.
+
+===== Articulation angle
+
+The articulation angle, i.e. the angle of the camera. The available angles stem:[\alpha] are given by the formula
+
+[stem]
+++++
+\alpha = 1.75^{\circ} + 0.75 (i - 1)
+++++
+where stem:[1 \leq i \leq 132]. stem:[i] is the articulation station. Technically, there is an articulation station 0 as well; its articulation angle is 0.
+
+===== Order blocking filter
+
+The order blocking filter, which should be one of the following.
+
+[%header]
+.Order blocking filters
+|===
+| Filter
+| pc00000
+| pc03200
+| pc03400
+| pc03850
+| pc04600
+|===
+
+===== Arc lamp
+
+The lamp(s) for which to take the arc. This is only relevant if the RSS configuration is for an arc. The following lamps are available.
+
+[%header]
+.Arc lamps
+|===
+| Arc lamp
+| Ar
+| Ar and ThAr
+| CuAr
+| CuAr and Xe
+| HgAr
+| HgAr and Ne
+| Ne
+| ThAr
+| Xe
+|===
+
+===== Uncharged calibrations
+
+The list of calibrations which should be taken and are not charged for. The following calibrations are available.
+
+[%header]
+.Uncharged calibrations
+|===
+| Uncharged calibration
+| Biases
+| Lick standard
+| Polarimetric spectrophotometry standards
+| Spectrophotometric standard
+| Spectroscopic lamp flats
+| Spectroscopic sky flats
+|===
+
+==== Fabry-Perot
+
+===== Etalon configuration
+
+The etalon configuration. The following configurations are possible.
+
+[%header]
+.Etalon configurations
+|===
+| Etalon configuration | Resolution
+| High resolution (HR) | ~ 8000
+| Low resolution (LR) | ~ 700
+| Medium resolution (MR) | ~ 1400
+| Tunable filter (TF) | ~ 250
+|===
+
+===== Wavelengths
+
+A list of the wavelengths.
+
+===== Fabry-Perot calibration
+
+A flag indicating that this is a Fabry-Perot calibration. This is mutually exclusive with a ring.
+
+===== Ring
+
+A flag indicating that this is the setup for a ring calibration. This is mutually exclusive with a Fabry-Perot calibration.
+
+===== Uncharged calibrations
+
+The list of calibrations which should be taken and are not charged for. The following calibrations are available.
+
+[%header]
+.Uncharged calibrations
+|===
+| Uncharged calibration
+| Biases
+| Imaging lamp flats
+| Imaging sky flats
+|===
+
+==== Imaging polarimetry, spectropolarimetry and Fabry-Perot polarimetry
+
+Imaging polarimetry, spectropolarimetry and Fabry-Perot polarimetry  have all the same properties as imaging, spectroscopy and Fabry-Perot configurations, respectively. In addition they include details related to polarimetry.
+
+===== Waveplate pattern
+
+A list of waveplate pattern steps. Each step has an angle for the half waveplate and angle for the quarter waveplate, one of which may be missing. The available angles stem:[\alpha] are given by the formula
+
+[stem]
+++++
+\alpha = 11.25^{\circ} i\ \ (0 \leq i \leq 31)
+++++
+
+===== Beamsplitter orientation
+
+The orientation of the beamsplitter, which may have any of the following values.
+
+[%header]
+.Beamsplitter orientations
+|===
+| Beamsplitter orientation
+| Normal
+|===
+
+=== Detector setup
+
+NOTE: Support for detector windows has been dropped.
+
+==== Exposure time
+
+The exposure time.
+
+==== Iterations
+
+The number of exposures to take.
+
+==== Detector mode
+
+The detector mode. The following modes are available.
+
+[%header]
+.Detector modes
+|===
+| Detector mode
+| Frame transfer
+| Normal
+| Slot mode
+|===
+
+==== Row binning
+
+The number of CCD rows combined during readout. This must be an integer between 1 and 9.
+
+==== Column binning
+
+The number of CCD columns combined during readout. This must be an integer between 1 and 9.
+
+==== Gain
+
+The gain, which may be one of the following.
+
+[%header]
+.Gains
+|===
+| Gain | Description
+| Bright | Low gain for bright objects
+| Faint | High gain for faint objects
+|===
+
+==== Readout speed
+
+The readout speed, which must be one of the following.
+
+[%header]
+.Readout speeds
+|===
+| Readout speed | Description
+| Fast | Higher noise, fast readout
+| None | No readout
+| Slow | Lower noise, slow readout
 |===
 
 [glossary]
