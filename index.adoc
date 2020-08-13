@@ -572,6 +572,26 @@ The minimum zenithal seeing required for the observation. The default value is 0
 
 The maximum zenithal seeing required for the observation. The seeing is given for the V band.
 
+==== Observation windows
+
+Datetime intervals during which the block may be observed. The datetimes are given as an {iso}.
+
+==== Phase constraints
+
+Phase intervals during which the block may be observed. This is relevant only if the target has a periodic variability.
+
+==== User notification time
+
+The time when the user should be notified of new data. This can be any of the following.
+
+[%header]
+.User notification times
+|===
+| User notification time
+| When both the raw and reduced data are on the ftp server
+| When the raw data are available in Cape Town
+|===
+
 === Acquisition
 
 ==== Target
@@ -627,6 +647,233 @@ The guide star information includes
 * the coordinates (<<#coordinates,as for a target>>)
 
 * the magnitude of the guide star
+
+==== Dither pattern
+
+The dither pattern includes
+
+* the number of horizontal tiles
+
+* the number of vertical tiles
+
+* the number of dither steps
+
+* the offset (in arcseconds) between steps
+
+NOTE: The dither pattern used to be defined on the instrument level.
+
+== Payload configuration group
+
+A group of payload configurations. This serves as a container to facilitate re-using payload configurations that logically belong together. This will mostly be a science configuration plus the corresponding calibrations.
+
+=== Name
+
+A name for this group. This is solely for the benefit of the PI, but must be unique within the proposal.
+
+=== Payload configurations
+
+A list of payload configurations.
+
+== Payload configuration
+
+NOTE: Support for pellicle setups has been dropped.
+
+=== Identifier
+
+An identifier for this payload configuration. The identifier should be unique within the proposal, but not necessarily across proposals.
+
+=== Base configuration
+
+A reference to another payload configuration in the proposal, on which this payload configuration is based. Properties are taken from the base configuration, unless they are explicitly defined in this payload configuration.
+
+NOTE: This is a new feature and it intends to cater for the fact that science setups and their corresponding calibrations are very similar. It wasn't necessary previously as calibrations were not explicitly included as separate payload configurations.
+
+=== Type
+
+The payload configuration type, which can be any of the following.
+
+[%header]
+.Payload configuration types
+|===
+| Payload configuration type
+| Daytime calibration
+| Instrument acquisition
+| Nighttime calibration
+| Science
+|===
+
+While acquisition is another payload configuration type, this is not included as acquisitions are handled separately.
+
+=== Guide method
+
+The method for guiding, which can be any of the following.
+
+[%header]
+.Guide methods
+|===
+| Guide method
+| Default
+| HRS Probe
+| None
+| RSS Probe
+| SALTICAM
+| SALTICAM Probe
+|===
+
+=== Calibration filter
+
+The calibration filter, if any. Any of the following values are allowed.
+
+[%header]
+.Calibration filters
+|===
+| Calibration filter
+| Clear and ND
+| Blue and Red
+| Clear and UV
+| ND and Clear
+| None
+| Red and Clear
+| UV and Blue
+|===
+
+=== Instrument configuration
+
+The instrument configuration is a reference to a Salticam, RSS, HRS or BVIT configuration.
+
+== Salticam configuration
+
+=== Cycles
+
+The number of times this configuration should be repeated. This should not be confused with detector iterations.
+
+=== Exposures
+
+A list of exposures, consisting of filters and exposure times.
+
+==== Filter
+
+A filter, which must be in the following list.
+
+[%header]
+.Salticam filters
+|===
+| Filter
+| 340nm 35nm FWHM
+| 380nm 40nm FWHM
+| Cousins I
+| Cousins R
+| Empty/unknown filter
+| Fused silica clear
+| H-alpha
+| H-beta narrow
+| H-beta wide
+| Johnson B
+| Johnson U
+| Johnson V
+| SDSS g'
+| SDSS i'
+| SDSS r'
+| SDSS u'
+| SDSS z'
+| SRE 1
+| SRE 2
+| SRE 3
+| SRE 4
+| Stroemgren b
+| Stroemgren u
+| Stroemgren v
+| Stroemgren y
+|===
+
+==== Exposure time
+
+The exposure time.
+
+=== Detector configuration
+
+NOTE: Support for CCD windows has been dropped.
+
+==== Detector mode
+
+The detector mode. The following modes are available.
+
+[%header]
+.Detector modes
+|===
+| Detector mode
+| Drift Scan
+| Frame Transfer
+| Normal
+| Slot Mode
+|===
+
+==== Row binning
+
+The number of CCD rows combined during readout. This must be an integer between 1 and 9.
+
+==== Column binning
+
+The number of CCD columns combined during readout. This must be an integer between 1 and 9.
+
+==== Exposure type
+
+The exposure type. This should be any of the following.
+
+[%header]
+.Exposure types
+|===
+| Exposure type
+| Bias
+| Flat field
+| Science
+|===
+
+==== Gain
+
+The detector gain. This should be any of the following.
+
+[%header]
+.Detector gains
+|===
+| Gain | Description
+| Bright | Low gain for bright objects
+| Faint | High gain for faint objects
+|===
+
+==== Readout speed
+
+The readout speed, which must be one of the following.
+
+[%header]
+.Readout speeds
+|===
+| Readout speed | Description
+| Fast | Higher noise, fast readout
+| None | No readout
+| Slow | Lower noise, slow readout
+|===
+
+==== Iterations
+
+The number of exposures to take.
+
+=== Flat field
+
+A flag indicating that this a (nighttime) flat field setup.
+
+=== Uncharged calibrations
+
+The list of calibrations which should be taken and are not charged for. The following calibrations are available.
+
+[%header]
+.Uncharged calibrations
+|===
+| Uncharged calibration
+|Biases
+| Imaging lamp flats
+| Twilight flats
+|===
 
 [glossary]
 == Glossary
