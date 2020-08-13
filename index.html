@@ -516,13 +516,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_instrument_configuration">10.6. Instrument configuration</a></li>
 </ul>
 </li>
-<li><a href="#_salticam_configuration">11. Salticam configuration</a>
+<li><a href="#_salticam_configuration_phase_2">11. Salticam configuration (phase 2)</a>
 <ul class="sectlevel2">
-<li><a href="#_cycles">11.1. Cycles</a></li>
-<li><a href="#_exposures">11.2. Exposures</a></li>
-<li><a href="#_detector_configuration">11.3. Detector configuration</a></li>
-<li><a href="#_flat_field">11.4. Flat field</a></li>
-<li><a href="#_uncharged_calibrations">11.5. Uncharged calibrations</a></li>
+<li><a href="#_identifier_3">11.1. Identifier</a></li>
+<li><a href="#_cycles">11.2. Cycles</a></li>
+<li><a href="#_exposures">11.3. Exposures</a></li>
+<li><a href="#_detector_configuration">11.4. Detector configuration</a></li>
+<li><a href="#_flat_field">11.5. Flat field</a></li>
+<li><a href="#_uncharged_calibrations">11.6. Uncharged calibrations</a></li>
+</ul>
+</li>
+<li><a href="#_rss_configuration_phase_2">12. RSS configuration (phase 2)</a>
+<ul class="sectlevel2">
+<li><a href="#_identifier_4">12.1. Identifier</a></li>
+<li><a href="#_cycles_2">12.2. Cycles</a></li>
+<li><a href="#_rss_mode_2">12.3. RSS mode</a></li>
+<li><a href="#_detector_setup">12.4. Detector setup</a></li>
 </ul>
 </li>
 <li><a href="#_glossary">Glossary</a></li>
@@ -2095,21 +2104,27 @@ This is a new feature and it intends to cater for the fact that science setups a
 </div>
 </div>
 <div class="sect1">
-<h2 id="_salticam_configuration">11. Salticam configuration</h2>
+<h2 id="_salticam_configuration_phase_2">11. Salticam configuration (phase 2)</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_cycles">11.1. Cycles</h3>
+<h3 id="_identifier_3">11.1. Identifier</h3>
+<div class="paragraph">
+<p>An identifier for this Salticam configuration. The identifier should be unique within this proposal, but not necessarily across proposals.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cycles">11.2. Cycles</h3>
 <div class="paragraph">
 <p>The number of times this configuration should be repeated. This should not be confused with detector iterations.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exposures">11.2. Exposures</h3>
+<h3 id="_exposures">11.3. Exposures</h3>
 <div class="paragraph">
 <p>A list of exposures, consisting of filters and exposure times.</p>
 </div>
 <div class="sect3">
-<h4 id="_filter_2">11.2.1. Filter</h4>
+<h4 id="salticam_filter">11.3.1. Filter</h4>
 <div class="paragraph">
 <p>A filter, which must be in the following list.</p>
 </div>
@@ -2203,14 +2218,14 @@ This is a new feature and it intends to cater for the fact that science setups a
 </table>
 </div>
 <div class="sect3">
-<h4 id="_exposure_time_2">11.2.2. Exposure time</h4>
+<h4 id="_exposure_time_2">11.3.2. Exposure time</h4>
 <div class="paragraph">
 <p>The exposure time.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_detector_configuration">11.3. Detector configuration</h3>
+<h3 id="_detector_configuration">11.4. Detector configuration</h3>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -2224,7 +2239,7 @@ Support for CCD windows has been dropped.
 </table>
 </div>
 <div class="sect3">
-<h4 id="_detector_mode_3">11.3.1. Detector mode</h4>
+<h4 id="_detector_mode_3">11.4.1. Detector mode</h4>
 <div class="paragraph">
 <p>The detector mode. The following modes are available.</p>
 </div>
@@ -2255,19 +2270,19 @@ Support for CCD windows has been dropped.
 </table>
 </div>
 <div class="sect3">
-<h4 id="_row_binning">11.3.2. Row binning</h4>
+<h4 id="_row_binning">11.4.2. Row binning</h4>
 <div class="paragraph">
 <p>The number of CCD rows combined during readout. This must be an integer between 1 and 9.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_column_binning">11.3.3. Column binning</h4>
+<h4 id="_column_binning">11.4.3. Column binning</h4>
 <div class="paragraph">
 <p>The number of CCD columns combined during readout. This must be an integer between 1 and 9.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_exposure_type">11.3.4. Exposure type</h4>
+<h4 id="_exposure_type">11.4.4. Exposure type</h4>
 <div class="paragraph">
 <p>The exposure type. This should be any of the following.</p>
 </div>
@@ -2295,12 +2310,12 @@ Support for CCD windows has been dropped.
 </table>
 </div>
 <div class="sect3">
-<h4 id="_gain">11.3.5. Gain</h4>
+<h4 id="_gain">11.4.5. Gain</h4>
 <div class="paragraph">
-<p>The detector gain. This should be any of the following.</p>
+<p>The gain. This should be any of the following.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. Detector gains</caption>
+<caption class="title">Table 16. Gains</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2324,7 +2339,7 @@ Support for CCD windows has been dropped.
 </table>
 </div>
 <div class="sect3">
-<h4 id="_readout_speed">11.3.6. Readout speed</h4>
+<h4 id="_readout_speed">11.4.6. Readout speed</h4>
 <div class="paragraph">
 <p>The readout speed, which must be one of the following.</p>
 </div>
@@ -2357,20 +2372,20 @@ Support for CCD windows has been dropped.
 </table>
 </div>
 <div class="sect3">
-<h4 id="_iterations_2">11.3.7. Iterations</h4>
+<h4 id="_iterations_2">11.4.7. Iterations</h4>
 <div class="paragraph">
 <p>The number of exposures to take.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_flat_field">11.4. Flat field</h3>
+<h3 id="_flat_field">11.5. Flat field</h3>
 <div class="paragraph">
-<p>A flag indicating that this a (nighttime) flat field setup.</p>
+<p>A flag indicating that this is a (nighttime) flat field setup.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uncharged_calibrations">11.5. Uncharged calibrations</h3>
+<h3 id="_uncharged_calibrations">11.6. Uncharged calibrations</h3>
 <div class="paragraph">
 <p>The list of calibrations which should be taken and are not charged for. The following calibrations are available.</p>
 </div>
@@ -2396,6 +2411,484 @@ Support for CCD windows has been dropped.
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rss_configuration_phase_2">12. RSS configuration (phase 2)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_identifier_4">12.1. Identifier</h3>
+<div class="paragraph">
+<p>An identifier for this Salticam configuration. The identifier should be unique within this proposal, but not necessarily across proposals.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cycles_2">12.2. Cycles</h3>
+<div class="paragraph">
+<p>The number of times this RSS configuration should be repeated. This should not be confused with detector iterations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rss_mode_2">12.3. RSS mode</h3>
+<div class="paragraph">
+<p>The RSS mode (and the details for it).</p>
+</div>
+<div class="sect3">
+<h4 id="_imaging">12.3.1. Imaging</h4>
+<div class="sect4">
+<h5 id="_filter_2">Filter</h5>
+<div class="paragraph">
+<p>The filter to use. This can be either an RSS imaging filter or a <a href="#salticam_filter">Salticam filter</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_spectroscopy">12.3.2. Spectroscopy</h4>
+<div class="sect4">
+<h5 id="_barcode">Barcode</h5>
+<div class="paragraph">
+<p>The barcode of the slit to use, such as PL0125N001. This is mutually exclusice with a mask file.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_mask_file">Mask file</h5>
+<div class="paragraph">
+<p>The URI of the (MOS) mask file. The URI must have been assigned by SALT. In other words, the mask file must have bee uploaded before the proposal can be submitted.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_grating_2">Grating</h5>
+<div class="paragraph">
+<p>The grating. This can be any of the following.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 19. Gratings</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Grating</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Open</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pg0300</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pg0900</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pg1300</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pg1800</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pg2300</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pg3000</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_grating_angle">Grating angle</h5>
+<div class="paragraph">
+<p>The angle of the grating. This usually is half the articulation angle.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_articulation_angle">Articulation angle</h5>
+<div class="paragraph">
+<p>The articulation angle, i.e. the angle of the camera. The available angles \(\alpha\) are given by the formula</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\alpha = 1.75^{\circ} + 0.75 (i - 1)\]
+</div>
+</div>
+<div class="paragraph">
+<p>where \(1 \leq i \leq 132\). \(i\) is the articulation station. Technically, there is an articulation station 0 as well; its articulation angle is 0.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_order_blocking_filter">Order blocking filter</h5>
+<div class="paragraph">
+<p>The order blocking filter, which should be one of the following.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 20. Order blocking filters</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Filter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pc00000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pc03200</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pc03400</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pc03850</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pc04600</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_arc_lamp">Arc lamp</h5>
+<div class="paragraph">
+<p>The lamp(s) for which to take the arc. This is only relevant if the RSS configuration is for an arc. The following lamps are available.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 21. Arc lamps</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Arc lamp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ar and ThAr</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CuAr</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CuAr and Xe</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HgAr</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HgAr and Ne</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ne</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ThAr</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Xe</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_uncharged_calibrations_2">Uncharged calibrations</h5>
+<div class="paragraph">
+<p>The list of calibrations which should be taken and are not charged for. The following calibrations are available.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 22. Uncharged calibrations</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Uncharged calibration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Biases</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lick standard</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Polarimetric spectrophotometry standards</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spectrophotometric standard</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spectroscopic lamp flats</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spectroscopic sky flats</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_fabry_perot">12.3.3. Fabry-Perot</h4>
+<div class="sect4">
+<h5 id="_etalon_configuration">Etalon configuration</h5>
+<div class="paragraph">
+<p>The etalon configuration. The following configurations are possible.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 23. Etalon configurations</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Etalon configuration</th>
+<th class="tableblock halign-left valign-top">Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High resolution (HR)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~ 8000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low resolution (LR)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~ 700</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium resolution (MR)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~ 1400</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tunable filter (TF)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~ 250</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_wavelengths">Wavelengths</h5>
+<div class="paragraph">
+<p>A list of the wavelengths.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_fabry_perot_calibration">Fabry-Perot calibration</h5>
+<div class="paragraph">
+<p>A flag indicating that this is a Fabry-Perot calibration. This is mutually exclusive with a ring.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_ring">Ring</h5>
+<div class="paragraph">
+<p>A flag indicating that this is the setup for a ring calibration. This is mutually exclusive with a Fabry-Perot calibration.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_uncharged_calibrations_3">Uncharged calibrations</h5>
+<div class="paragraph">
+<p>The list of calibrations which should be taken and are not charged for. The following calibrations are available.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 24. Uncharged calibrations</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Uncharged calibration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Biases</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Imaging lamp flats</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Imaging sky flats</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_imaging_polarimetry_spectropolarimetry_and_fabry_perot_polarimetry">12.3.4. Imaging polarimetry, spectropolarimetry and Fabry-Perot polarimetry</h4>
+<div class="paragraph">
+<p>Imaging polarimetry, spectropolarimetry and Fabry-Perot polarimetry  have all the same properties as imaging, spectroscopy and Fabry-Perot configurations, respectively. In addition they include details related to polarimetry.</p>
+</div>
+<div class="sect4">
+<h5 id="_waveplate_pattern">Waveplate pattern</h5>
+<div class="paragraph">
+<p>A list of waveplate pattern steps. Each step has an angle for the half waveplate and angle for the quarter waveplate, one of which may be missing. The available angles \(\alpha\) are given by the formula</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\alpha = 11.25^{\circ} i\ \ (0 \leq i \leq 31)\]
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_beamsplitter_orientation">Beamsplitter orientation</h5>
+<div class="paragraph">
+<p>The orientation of the beamsplitter, which may have any of the following values.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 25. Beamsplitter orientations</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Beamsplitter orientation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Normal</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_detector_setup">12.4. Detector setup</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Support for detector windows has been dropped.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_exposure_time_3">12.4.1. Exposure time</h4>
+<div class="paragraph">
+<p>The exposure time.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_iterations_3">12.4.2. Iterations</h4>
+<div class="paragraph">
+<p>The number of exposures to take.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_detector_mode_4">12.4.3. Detector mode</h4>
+<div class="paragraph">
+<p>The detector mode. The following modes are available.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 26. Detector modes</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Detector mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Frame transfer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Normal</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Slot mode</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_row_binning_2">12.4.4. Row binning</h4>
+<div class="paragraph">
+<p>The number of CCD rows combined during readout. This must be an integer between 1 and 9.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_column_binning_2">12.4.5. Column binning</h4>
+<div class="paragraph">
+<p>The number of CCD columns combined during readout. This must be an integer between 1 and 9.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_gain_2">12.4.6. Gain</h4>
+<div class="paragraph">
+<p>The gain, which may be one of the following.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 27. Gains</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Gain</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bright</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low gain for bright objects</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Faint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High gain for faint objects</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_readout_speed_2">12.4.7. Readout speed</h4>
+<div class="paragraph">
+<p>The readout speed, which must be one of the following.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 28. Readout speeds</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Readout speed</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fast</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Higher noise, fast readout</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No readout</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Slow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lower noise, slow readout</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -2459,7 +2952,7 @@ Support for CCD windows has been dropped.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-13 15:24:14 UTC
+Last updated 2020-08-13 19:21:02 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">
