@@ -493,6 +493,38 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_pool_rule">7.2. Pool rule</a></li>
 </ul>
 </li>
+<li><a href="#_block">8. Block</a>
+<ul class="sectlevel2">
+<li><a href="#_general_information">8.1. General information</a></li>
+<li><a href="#_acquisition">8.2. Acquisition</a></li>
+<li><a href="#_telescope_configuration">8.3. Telescope configuration</a></li>
+</ul>
+</li>
+<li><a href="#_payload_configuration_group">9. Payload configuration group</a>
+<ul class="sectlevel2">
+<li><a href="#_name_3">9.1. Name</a></li>
+<li><a href="#_payload_configurations">9.2. Payload configurations</a></li>
+</ul>
+</li>
+<li><a href="#_payload_configuration">10. Payload configuration</a>
+<ul class="sectlevel2">
+<li><a href="#_identifier_2">10.1. Identifier</a></li>
+<li><a href="#_base_configuration">10.2. Base configuration</a></li>
+<li><a href="#_type">10.3. Type</a></li>
+<li><a href="#_guide_method">10.4. Guide method</a></li>
+<li><a href="#_calibration_filter">10.5. Calibration filter</a></li>
+<li><a href="#_instrument_configuration">10.6. Instrument configuration</a></li>
+</ul>
+</li>
+<li><a href="#_salticam_configuration">11. Salticam configuration</a>
+<ul class="sectlevel2">
+<li><a href="#_cycles">11.1. Cycles</a></li>
+<li><a href="#_exposures">11.2. Exposures</a></li>
+<li><a href="#_detector_configuration">11.3. Detector configuration</a></li>
+<li><a href="#_flat_field">11.4. Flat field</a></li>
+<li><a href="#_uncharged_calibrations">11.5. Uncharged calibrations</a></li>
+</ul>
+</li>
 <li><a href="#_glossary">Glossary</a></li>
 </ul>
 </div>
@@ -1060,7 +1092,7 @@ This is a new requirement and is motivated by a similar requirement for blocks.
 <p>The target ephemeris. This may be either of coordinates, a Horizons identifier or a dummy target flag.</p>
 </div>
 <div class="sect3">
-<h4 id="_coordinates">4.5.1. Coordinates</h4>
+<h4 id="coordinates">4.5.1. Coordinates</h4>
 <div class="paragraph">
 <p>The coordinates include</p>
 </div>
@@ -1480,6 +1512,894 @@ The precise wording will probably change, as the DSL has not been defined yet.
 </div>
 </div>
 <div class="sect1">
+<h2 id="_block">8. Block</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A block is the smallest schedulable unit in a proposal&#8201;&#8212;&#8201;it is observed in total, or not all, and its observation does not imply that any other block is observed. A block can have multiple visits, which are observed inependent of each. So strictly speaking, a single visit of a block is the smallest schedulable unit.</p>
+</div>
+<div class="paragraph">
+<p>A block consists of general information, an acquisition and one or more telescope configurations.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+There are no subblocks, subsubblocks and pointings any longer.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_general_information">8.1. General information</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The following have been dropped:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The block type (science or calibration)</p>
+</li>
+<li>
+<p>The flag indicating whether the block is charged</p>
+</li>
+<li>
+<p>The flag indicating a continuous visit</p>
+</li>
+<li>
+<p>The datetime after which the block should not be observed any longer</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_name_2">8.1.1. Name</h4>
+<div class="paragraph">
+<p>The name of the block. This must be unique within the proposal.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_identifier">8.1.2. Identifier</h4>
+<div class="paragraph">
+<p>A unique identifier for this block. The identifier must be unique for a proposal, but not necessarily across proposals.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_2">8.1.3. Version</h4>
+<div class="paragraph">
+<p>The  version of this block, starting with 1. Once submitted, the version of a block cannot be changed any longer. More precisely, an attempt to resubmit it (with more than the identifier and version information) should result in an error.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_comment_2">8.1.4. Comment</h4>
+<div class="paragraph">
+<p>A note about the block, aimed primarily at the observer.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_priority">8.1.5. Priority</h4>
+<div class="paragraph">
+<p>The priority for the block. This is an integer between 0 and 4 inclusive.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ranking_2">8.1.6. Ranking</h4>
+<div class="paragraph">
+<p>The importance of this block relative to other blocks of the same priority in this proposal. The following values are possible.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. Rankings</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Ranking</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_visits_2">8.1.7. Visits</h4>
+<div class="paragraph">
+<p>The number of visits, i.e.the number of times the block should be observed in the semester for this proposal.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maximum_number_of_visits_for_all_semesters">8.1.8. Maximum number of visits for all semesters</h4>
+<div class="paragraph">
+<p>The maximum number of visits for all semesters combined.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_time_between_visits">8.1.9. Time between visits</h4>
+<div class="paragraph">
+<p>The minimum number of days between consecutive visits. A value of 1day means that the next visit can be obsertved the following night.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_transparency">8.1.10. Transparency</h4>
+<div class="paragraph">
+<p>The sky transparency required for the observation, which can be any of the following.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 8. Transparencies</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Transparency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clear</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Thick cloud</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Thin cloud</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_maximum_lunar_illuminated_fraction">8.1.11. Maximum lunar illuminated fraction</h4>
+<div class="paragraph">
+<p>The maximum illuminated fraction of the Moon for which the observation can be carried out if the Moon is above the horizon. The illuminated fraction \(k\) is related to the lunar phase \(\alpha\) (i.e. the angle between Sun, Earth and Moon):</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[k = \frac{1 + \cos\alpha}{2}\]
+</div>
+</div>
+<div class="paragraph">
+<p>\(k\) is a value between 0 (new moon) and 1 (full moon).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_minimum_lunar_distance">8.1.12. Minimum lunar distance</h4>
+<div class="paragraph">
+<p>The minimum lunar distance required for the observation. The lunar distance \(\theta\) is the angle between the Moon and the target,</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\theta = \arccos\left(
+\left(\begin{array}{c}
+\cos\delta_1 \cos\alpha_1\\
+\cos\delta_1 \sin\alpha_1\\
+\sin\delta_1
+\end{array}\right)
+\cdot
+\left(\begin{array}{c}
+\cos\delta_2 \cos\alpha_2\\
+\cos\delta_2 \sin\alpha_2\\
+\sin\delta_2
+\end{array}\right)
+\right)\]
+</div>
+</div>
+<div class="paragraph">
+<p>Here \(\alpha\) and \(\delta\) are the right ascension and declination, respectively. Essentially this formula uses the scalar product between two unit vectors on the celestial sphere.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_minimum_seeing">8.1.13. Minimum seeing</h4>
+<div class="paragraph">
+<p>The minimum zenithal seeing required for the observation. The default value is 0.1 arcseconds, and in most cases this is the value to choose. The seeing is given for the V band.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maximum_seeing">8.1.14. Maximum seeing</h4>
+<div class="paragraph">
+<p>The maximum zenithal seeing required for the observation. The seeing is given for the V band.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_observation_windows">8.1.15. Observation windows</h4>
+<div class="paragraph">
+<p>Datetime intervals during which the block may be observed. The datetimes are given as an <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601 datetime string</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_phase_constraints">8.1.16. Phase constraints</h4>
+<div class="paragraph">
+<p>Phase intervals during which the block may be observed. This is relevant only if the target has a periodic variability.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_user_notification_time">8.1.17. User notification time</h4>
+<div class="paragraph">
+<p>The time when the user should be notified of new data. This can be any of the following.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 9. User notification times</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">User notification time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When both the raw and reduced data are on the ftp server</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When the raw data are available in Cape Town</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_acquisition">8.2. Acquisition</h3>
+<div class="sect3">
+<h4 id="_target_2">8.2.1. Target</h4>
+<div class="paragraph">
+<p>A reference to a target in this proposal.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_blind_offset">8.2.2. Blind offset</h4>
+<div class="paragraph">
+<p>The blind offset is characterised by</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the coordinates of a reference star (<a href="#coordinates">as for a target</a>)</p>
+</li>
+<li>
+<p>the north and east offset (in arcseconds) of the invisible object</p>
+</li>
+<li>
+<p>the magnitude of the invisible object</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Which bandpass is to be used for the magnitude?
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_bandpass">8.2.3. Bandpass</h4>
+<div class="paragraph">
+<p>The bandpass to use for the acquisition image. This is merely a suggestion, which may be overruled by the observer.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_exposure_time">8.2.4. Exposure time</h4>
+<div class="paragraph">
+<p>The exposure time for the acquisition image. This is merely a suggestion, which may be overruled by the observer.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_finder_charts">8.2.5. Finder charts</h4>
+<div class="paragraph">
+<p>A list of finder charts. Each finder chart is a URI to a file. The URIs must have been assigned by SALT. In other words, the finder charts must have been uploaded before the proposal can be submitted.</p>
+</div>
+<div class="paragraph">
+<p>The finder charts are optional; a finder chart is generated during submission and added to the proposal.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_telescope_configuration">8.3. Telescope configuration</h3>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+This part requires some discussion!
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_iterations">8.3.1. Iterations</h4>
+<div class="paragraph">
+<p>The number of times this telescope configuration should be repeated.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_position_angle">8.3.2. Position angle</h4>
+<div class="paragraph">
+<p>The position angle of the camera. This may be either of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The angle from north (being zero), the positive direction being to the east.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/position_angle.png" alt="position angle">
+</div>
+</div>
+</li>
+<li>
+<p>A flag indicating that a parallactic angle should be used.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_guide_star">8.3.3. Guide star</h4>
+<div class="paragraph">
+<p>The guide star information includes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the coordinates (<a href="#coordinates">as for a target</a>)</p>
+</li>
+<li>
+<p>the magnitude of the guide star</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dither_pattern">8.3.4. Dither pattern</h4>
+<div class="paragraph">
+<p>The dither pattern includes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the number of horizontal tiles</p>
+</li>
+<li>
+<p>the number of vertical tiles</p>
+</li>
+<li>
+<p>the number of dither steps</p>
+</li>
+<li>
+<p>the offset (in arcseconds) between steps</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The dither pattern used to be defined on the instrument level.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_payload_configuration_group">9. Payload configuration group</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A group of payload configurations. This serves as a container to facilitate re-using payload configurations that logically belong together. This will mostly be a science configuration plus the corresponding calibrations.</p>
+</div>
+<div class="sect2">
+<h3 id="_name_3">9.1. Name</h3>
+<div class="paragraph">
+<p>A name for this group. This is solely for the benefit of the PI, but must be unique within the proposal.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_payload_configurations">9.2. Payload configurations</h3>
+<div class="paragraph">
+<p>A list of payload configurations.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_payload_configuration">10. Payload configuration</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Support for pellicle setups has been dropped.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_identifier_2">10.1. Identifier</h3>
+<div class="paragraph">
+<p>An identifier for this payload configuration. The identifier should be unique within the proposal, but not necessarily across proposals.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_base_configuration">10.2. Base configuration</h3>
+<div class="paragraph">
+<p>A reference to another payload configuration in the proposal, on which this payload configuration is based. Properties are taken from the base configuration, unless they are explicitly defined in this payload configuration.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This is a new feature and it intends to cater for the fact that science setups and their corresponding calibrations are very similar. It wasn&#8217;t necessary previously as calibrations were not explicitly included as separate payload configurations.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_type">10.3. Type</h3>
+<div class="paragraph">
+<p>The payload configuration type, which can be any of the following.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 10. Payload configuration types</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Payload configuration type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Daytime calibration</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instrument acquisition</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nighttime calibration</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Science</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>While acquisition is another payload configuration type, this is not included as acquisitions are handled separately.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_guide_method">10.4. Guide method</h3>
+<div class="paragraph">
+<p>The method for guiding, which can be any of the following.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 11. Guide methods</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Guide method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HRS Probe</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RSS Probe</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SALTICAM</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SALTICAM Probe</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_calibration_filter">10.5. Calibration filter</h3>
+<div class="paragraph">
+<p>The calibration filter, if any. Any of the following values are allowed.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 12. Calibration filters</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Calibration filter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clear and ND</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Blue and Red</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clear and UV</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ND and Clear</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Red and Clear</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UV and Blue</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_instrument_configuration">10.6. Instrument configuration</h3>
+<div class="paragraph">
+<p>The instrument configuration is a reference to a Salticam, RSS, HRS or BVIT configuration.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_salticam_configuration">11. Salticam configuration</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_cycles">11.1. Cycles</h3>
+<div class="paragraph">
+<p>The number of times this configuration should be repeated. This should not be confused with detector iterations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exposures">11.2. Exposures</h3>
+<div class="paragraph">
+<p>A list of exposures, consisting of filters and exposure times.</p>
+</div>
+<div class="sect3">
+<h4 id="_filter_2">11.2.1. Filter</h4>
+<div class="paragraph">
+<p>A filter, which must be in the following list.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 13. Salticam filters</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Filter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">340nm 35nm FWHM</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">380nm 40nm FWHM</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cousins I</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cousins R</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Empty/unknown filter</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fused silica clear</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">H-alpha</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">H-beta narrow</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">H-beta wide</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Johnson B</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Johnson U</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Johnson V</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SDSS g'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SDSS i'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SDSS r'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SDSS u'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SDSS z'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SRE 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SRE 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SRE 3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SRE 4</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stroemgren b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stroemgren u</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stroemgren v</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stroemgren y</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_exposure_time_2">11.2.2. Exposure time</h4>
+<div class="paragraph">
+<p>The exposure time.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_detector_configuration">11.3. Detector configuration</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Support for CCD windows has been dropped.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_detector_mode_3">11.3.1. Detector mode</h4>
+<div class="paragraph">
+<p>The detector mode. The following modes are available.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 14. Detector modes</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Detector mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Drift Scan</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Frame Transfer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Normal</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Slot Mode</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_row_binning">11.3.2. Row binning</h4>
+<div class="paragraph">
+<p>The number of CCD rows combined during readout. This must be an integer between 1 and 9.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_column_binning">11.3.3. Column binning</h4>
+<div class="paragraph">
+<p>The number of CCD columns combined during readout. This must be an integer between 1 and 9.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_exposure_type">11.3.4. Exposure type</h4>
+<div class="paragraph">
+<p>The exposure type. This should be any of the following.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 15. Exposure types</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Exposure type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bias</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Flat field</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Science</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_gain">11.3.5. Gain</h4>
+<div class="paragraph">
+<p>The detector gain. This should be any of the following.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 16. Detector gains</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Gain</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bright</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low gain for bright objects</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Faint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High gain for faint objects</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_readout_speed">11.3.6. Readout speed</h4>
+<div class="paragraph">
+<p>The readout speed, which must be one of the following.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 17. Readout speeds</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Readout speed</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fast</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Higher noise, fast readout</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No readout</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Slow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lower noise, slow readout</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_iterations_2">11.3.7. Iterations</h4>
+<div class="paragraph">
+<p>The number of exposures to take.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_flat_field">11.4. Flat field</h3>
+<div class="paragraph">
+<p>A flag indicating that this a (nighttime) flat field setup.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uncharged_calibrations">11.5. Uncharged calibrations</h3>
+<div class="paragraph">
+<p>The list of calibrations which should be taken and are not charged for. The following calibrations are available.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 18. Uncharged calibrations</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Uncharged calibration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Biases</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Imaging lamp flats</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Twilight flats</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_glossary">Glossary</h2>
 <div class="sectionbody">
 <div class="dlist glossary">
@@ -1539,8 +2459,32 @@ The precise wording will probably change, as the DSL has not been defined yet.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-11 18:03:46 UTC
+Last updated 2020-08-13 15:24:14 UTC
 </div>
 </div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains('stemblock')) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
